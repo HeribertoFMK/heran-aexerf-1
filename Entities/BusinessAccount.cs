@@ -1,30 +1,25 @@
-namespace herpoli.Entities
+namespace Course.Entities
 {
-    public class BusinessAccount : Account
+    class BusinessAccount : Account
     {
-        public double LoadLimit{get;set;}
+        public double LoanLimit { get; set; }
 
-        public BusinessAccount(int number, string holder, double balance, double loadlimit):base(number,holder,balance){
-
-
-            LoadLimit = loadlimit;
-
+        public BusinessAccount()
+        {
         }
 
-        public void Loan(double amount){
+        public BusinessAccount(int number, string holder, double balance, double loanLimit)
+            : base(number, holder, balance)
+        {
+            LoanLimit = loanLimit;
+        }
 
-            if(amount > LoadLimit){
-
-
+        public void Loan(double amount)
+        {
+            if (amount <= LoanLimit)
+            {
                 Balance += amount;
-
             }
-
-
-
         }
-
-        
     }
-    
 }

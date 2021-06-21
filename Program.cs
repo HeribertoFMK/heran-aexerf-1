@@ -1,5 +1,8 @@
-﻿using System;
-using herpoli.Entities;
+﻿
+using Course.Entities;
+using System.Collections.Generic;
+using System.Globalization;
+
 
 
 namespace herpoli
@@ -8,50 +11,35 @@ namespace herpoli
     {
         static void Main(string[] args)
         {
-           Account acc = new Account(1001,"Alez",0.0);
-           BusinessAccount bacc = new BusinessAccount(1002,"maria",0.0,500.00);
+          List<Account> list = new List<Account>();
 
-           Account acc1 = bacc;
-          Account acc2 = new BusinessAccount(1003,"jairo",0.0,200.00);
+           list.Add(new SavingsAccount(1001,"maria",500.0,0.01));
+           list.Add(new BusinessAccount(1002,"alex",500.0,400.00));
+            list.Add(new SavingsAccount(1003, "bob", 500.0, 0.01));
+            list.Add(new BusinessAccount(1004, "ana", 500.0, 500.00));
 
-          Account acc3 = new SavingAccount(1004,"ana",0.0,0.01);
+            double sum = 0.0;
 
-
-          //BusinessAccount add1 = (BusinessAccount)new Account(1001,"alvarez",0.0);
-          //add1.Loan(100.00);
-          
-
-          if(acc3 is BusinessAccount){
-          
-          BusinessAccount add2 = acc3 as BusinessAccount;
-          add2.Loan(200.00);
-          System.Console.WriteLine("Loan!");
-
-          }
-
-          if(acc3 is SavingAccount){
+            foreach(Account met in list){
 
 
-              SavingAccount add2 = acc3 as SavingAccount;
-              add2.UpdateBalance();
-              System.Console.WriteLine("UpBalance!");
-          }
+              sum += met.Balance;
+            }
 
+            System.Console.WriteLine("total balance"  + sum.ToString("F2",CultureInfo.InvariantCulture));
 
-            Account acc6 =  new Account(1004, "ana", 500.0);
-            Account acc7 = new SavingAccount(1004, "ana", 500.0, 0.01);
-
-
-          acc6.Withdraw(10.0);
-          acc7.Withdraw(10.0);
-          System.Console.WriteLine(acc6.Balance);
-          System.Console.WriteLine(acc7.Balance);
-
-
-
-
-           
+            foreach (Account acc in list)
+            {
+                acc.Withdraw(10.0);
+            }
+            foreach (Account acc in list)
+            {
+               System.Console.WriteLine("Updated balance for account "
+                    + acc.Number
+                    + ": "
+                    + acc.Balance.ToString("F2", CultureInfo.InvariantCulture));
 
         }
     }
+}
 }
